@@ -1,4 +1,521 @@
-hello word!
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<style>
+			body{width:100%;height:100%;overflow:hidden;}
+			.sence{width:400px;height:400px;margin:0 auto;-webkit-transform-style: preserve-3d;perspective: 1000px;position: relative;border: 1px #000 solid;}
+			.box{width: 100%;height:100%;transform-style:preserve-3d ;color: #00a0e9; }
+			.ring{width:100%;height:100%;position: absolute;}
+			.ring li{position: absolute;}
+			.ring li.all{transition:all 1s ease;}
+			.ring li.one{transition: transform 1s ease;}
+			.item{position: absolute;width: 100%;border: 1px #000 solid;top: 100px;transform: scale(2);opacity:0;display:none;transition: all 0.5s ease;transform-origin: center center -200px;color: #00a0e9;}
+			.item p{font:14px/24px "微软雅黑";word-break: break-word;}
+			.item a{width:19px;height:19px;background: url(img/close.png) no-repeat center center;position: absolute;top:-30px;right:-30px;}
+			.table{width:400px;margin:20px auto 10px;overflow: hidden;}
+			.table a{float:left;width:25%;height:12px; padding-top:94px;font: 12px/12px "微软雅黑";text-align:center ;color: #889199;background-position: center top; background-repeat: no-repeat;}
+			.table a:nth-of-type(1){background-image:url(img/circle.png)}
+			.table a:nth-of-type(2){background-image:url(img/Cone.png)}
+			.table a:nth-of-type(3){background-image:url(img/Column.png)}
+			.table a:nth-of-type(4){background-image:url(img/Column2.png)}
+			.table a:nth-of-type(1):hover{background-image:url(img/circle-hover.png)}
+			.table a:nth-of-type(2):hover{background-image:url(img/Cone-hover.png)}
+			.table a:nth-of-type(3):hover{background-image:url(img/Column-hover.png)}
+			.table a:nth-of-type(4):hover{background-image:url(img/Column2-hover.png)}
+			.table a:nth-of-type(1).active{background-image:url(img/circle-active.png)}
+			.table a:nth-of-type(2).active{background-image:url(img/Cone-active.png)}
+			.table a:nth-of-type(3).active{background-image:url(img/Column-active.png)}
+			.table a:nth-of-type(4).active{background-image:url(img/Column2-active.png)}
+			.line{width:734px;height:1px;margin:0 auto 14px;background: -webkit-linear-gradient(left,#7ecdf4,#8cca94,#fff45c);}
+			.btn{width: 204px;height:30px;margin: 0 auto;overflow: hidden;}
+			.btn button{width:100px;height:100%;border:1px solid #cacaca;float:left;color:#889199;}
+			.btn button:nth-of-type(1){border-radius: 15px 0 0 15px;}
+			.btn button:nth-of-type(2){border-radius: 0px 15px 15px 0px;margin-left:-1px;}
+			button{background: -webkit-linear-gradient(#fff,#d6e1eb);color:#889199;}
+			button:hover{background: -webkit-linear-gradient(#bef5ff,#77c5eb);color:#00a0e9;}
+			button.active{background: -webkit-linear-gradient(#77c5eb,#bef5ff);color:#889199;}
+			.text{width:602px;height:318px;padding:15px 18px;border:1px solid #b3b8bb;position: absolute;left:50%;margin-left:-329px;top:30px;background: #fff;border-radius: 8px;opacity: 0;display:none;color: #00a0e9;-webkit-transition:all 0.5s ease;transform: scale(0.5);}
+			.text p{font-size:12px;margin-bottom:15px;}
+			.text textarea{resize:none;width: 580px;height: 220px;padding: 10px;border: 1px solid #cacaca;border-radius:8px;background-color:#f3f7fa;margin-bottom:15px;}
+			.btn2{width: 260px;height: 30px;margin: 0 auto;overflow: hidden;}
+			.btn2 button{width: 120px;height: 100%;border: 1px solid #cacaca;border-radius:15px;float:left;}
+			.btn2 button:nth-of-type(1){margin-right: 15px;}
+			.close{position: absolute;top: 10px;right: 10px;width: 19px;height: 19px;background: url(img/close.png) no-repeat center center;}
+		</style>
+		<script>
+			//var arr = [1,3,5,7,9,11,9,7,5,3,1]; 
+			var s = '奥i额后日俄贴后很容恶化哦个红萼红戎哦i化工i黄蓉固话缴费接口返回狗i二货啊过后韩少功和撒娇更好u很高奥i额后日俄贴后很容恶化哦个红萼红戎哦i化工i黄蓉固话缴费接口返回狗i二货啊过后韩少功和撒娇更好u很高‘奥i额后日俄贴后很容恶化哦个红萼红戎哦i化工i黄蓉固话缴费接口返回狗i二货啊过后韩少功和撒娇更好u很高‘奥i额后日俄贴';
+			window.onload = function(){
+				var osence = document.getElementById('sence')
+				var box = osence.getElementsByClassName('box')[0];
+				var oul = box.getElementsByTagName('ul')[0];
+				var ali = oul.getElementsByTagName('li');
+				var otable = document.getElementById('table');
+				var abtn = otable.getElementsByTagName('a');
+				var item = document.getElementsByClassName('item')[0];
+				var op = item.getElementsByTagName('p')[0];
+				var oa = item.getElementsByTagName('a')[0];
+				var obtn = document.getElementsByClassName('btn')[0];
+				var btn = obtn.getElementsByTagName('button');
+				var text = document.getElementsByClassName('text')[0];
+				var textarea = text.getElementsByTagName('textarea')[0];
+				var close = text.getElementsByTagName('a')[0];
+				var btn2 = text.getElementsByTagName('button');
+				
+				var num = 0;
+				var layer = 0;
+				var wordnum = -1;
+				var circlearr = [];
+				var theta = 0;
+				var phi = 0;
+				var r = 150;
+				var conenum = 0;
+				var conearr = [];
+				var linum = 0;
+				var colnumh = 0;
+				var colnum = 0;
+				var graph = 0;
+				var timer = 0;
+				
+				var anglex = 0;
+				var angley = 0;
+				
+				start();
+			  function start(){	
+			  	
+			  	num = 0;
+				layer = 0;
+				wordnum = -1;
+				circlearr = [];
+				theta = 0;
+				phi = 0;
+				r = 150;
+				conenum = 0;
+				conearr = [];
+				linum = 0;
+				colnumh = 0;
+				colnum = 0;
+				graph = 0;
+				timer = 0;
+				op.innerHTML = s;
+				
+				//圆
+				for(var i=4;i<13;i++){
+					num = i*i + (i+1)*(i+1);
+					if(num>=s.length){
+						layer = (i - 1)*2+1;
+						break;
+					}
+					layer = (i-1)*2+1;
+				}
+				
+				for(var i=0;i<layer;i++){
+					if(i<(layer+1)/2){
+						wordnum += 2;
+					}else{
+						wordnum -= 2;
+					}
+					circlearr.push(wordnum);
+				}
+				
+				num = 0;
+				theta = Math.PI/(circlearr.length-1);
 
+				for(var i=0;i<circlearr.length;i++){
+					phi = 2*Math.PI/(circlearr[i]);
+					for(var j=0;j<circlearr[i];j++){
+						var li = document.createElement('li');
+						li.innerHTML = s[num];
+						num ++;
+						drawcir(li,theta,phi,i,j);
+						oul.appendChild(li);
+					}
+				}
+				
+				//圆锥
+				for(var i=0;i<ali.length;i++){
+					conenum += 2*i-1;
+					if(conenum>ali.length){
+						conenum -= 2*i-1;
+						break;
+					}
+					conearr.push(2*i-1);
+				}
+				
+				for(var i=0;i<conearr.length;i++){
+					phi = 2*Math.PI/conearr[i];
+					for(var j=0;j<conearr[i];j++){
+						drawcone(ali[linum],phi,i,j);
+						linum ++;
+					}
+				};
+				
+				//圆柱
+				colnumh = Math.floor(ali.length/(circlearr.length-2));
+				colnum = (circlearr.length-2)*colnumh;
+				linum = 0;
+				for(var i=0;i<circlearr.length-1;i++){
+					phi = 2*Math.PI/colnumh;
+					for(var j=0;j<colnumh;j++){
+						drawcol(ali[linum],phi,i,j);
+						drawcol2(ali[linum],phi,i,j);
+						linum ++;
+					}
+				}
+				
+				for(var i=0;i<ali.length;i++){//圆
+					ali[i].style.transform = 'translate3D('+ali[i].circlex+'px,'+ali[i].circley+'px,'+ali[i].circlez+'px) rotateY('+ali[i].circlephi+'rad) rotateX('+ali[i].circletheta+'rad)';
+				}
+				
+//				for(var i=0;i<ali.length;i++){
+//					ali[i].style.display = 'none';
+//				}
+				
+//				for(var i=0;i<conenum;i++){//圆锥
+//					ali[i].style.display = 'block';
+//					ali[i].style.transform='translate3D('+ali[i].conex+'px,'+ali[i].coney+'px,'+ali[i].conez+'px) rotateY('+ali[i].conephi+'rad) rotateX('+ali[i].conetheta+'rad)';
+//				}
+//				
+//				for(var i=0;i<colnum;i++){//圆柱
+//					ali[i].style.display = 'block';
+//					ali[i].style.transform = 'translate3D('+ali[i].colx2+'px,'+ali[i].coly2+'px,'+ali[i].colz2+'px) rotateY('+ali[i].colphi2+'rad)';
+//				}
+              }
 
-xueranbo
+ //点击切换
+                abtn[0].onclick = function(){//圆
+                	clearTimeout(timer);
+                	abtn[graph].className = '';
+                	graph = 0;
+                	abtn[graph].className = 'active';
+                	startchange();
+                	timer = setTimeout(function(){
+                		changecircle();
+                	},1050);
+                }
+                
+                abtn[1].onclick = function(){//圆锥
+                	clearTimeout(timer);
+                	abtn[graph].className = '';
+                	graph = 1;
+                	abtn[graph].className = 'active';
+                	startchange();
+                	timer = setTimeout(function(){
+                		changecone();
+                	},1050)
+                }
+                
+                abtn[2].onclick = function(){//圆柱
+                	clearTimeout(timer);
+                	abtn[graph].className = '';
+                	graph = 2;
+                	abtn[graph].className = 'active';
+                	startchange();
+                	timer = setTimeout(function(){
+                		changecol();
+                	},1050)
+                }
+                abtn[3].onclick = function(){//扭曲圆柱
+                	clearTimeout(timer);
+                	abtn[graph].className = '';
+                	graph = 3;
+                	abtn[graph].className = 'active';
+                	startchange();
+                	timer = setTimeout(function(){
+                		changecol2();
+                	},1050)
+                }
+                
+                osence.onmousedown = function(ev){
+                	clearInterval(timer2);
+                	var ev = ev||event;
+                	var clickx = ev.clientX;
+                	var clicky = ev.clientY;
+                	var disx = 0;
+                	var disy = 0;
+                	
+                	document.onmousemove =function(ev){
+                		var ev = ev||event;
+                		disx = ev.clientX - clickx;
+                		disy = ev.clientY - clicky;
+                		box.style.transform = 'rotateX('+(anglex - disy)+'deg) rotateY('+(angley+disx)+'deg)';
+                	}
+                	document.onmouseup = function(){
+                		document.onmousemove = document.onmouseup = null;
+                		anglex = anglex-disy;
+                		angley = angley+disx;
+                		if(disy==0&&disx==0){
+                   			disy = 300;
+                		}
+                		timer2 = setInterval(function(){
+					        angley -= disy/100;
+					        anglex += disx/100;
+					        
+					        box.style.transform = 'rotateX('+(anglex)+'deg) rotateY('+angley+'deg)';
+					        //console.log(1)
+				        },60);
+				        //alert(anglex)
+                	}
+                	return false;
+                }
+
+                btn[0].onclick = function(){
+                	this.className = 'active';
+                	startchange();
+                	item.style.display = 'block';
+                	setTimeout(function(){
+                		item.style.opacity = 1;
+                		item.style.transform = 'scale(1)';
+                	},1030)
+                }
+                oa.onclick = function(){
+                	btn[0].className = '';
+                	item.style.transform = 'rotateX(180deg)';
+                	item.style.opacity = 0;
+                	setTimeout(function(){
+                		switch(graph){
+                			case 0:
+                			     changecircle()
+                			break;
+                			case 1:
+                			     changecone();
+                			break;
+                			case 2:
+                			     changecol();
+                			break;
+                			case 3:
+                			     changecol2();
+                			break;
+                		}
+                		item.style.transform = 'rotateX(0deg)';
+                	    item.style.opacity = 0;
+                	    item.style.display = 'none';
+                	    item.style.transform = 'scale(2)';
+                	},550)
+                }
+                
+                btn[1].onclick = function(){
+                	text.style.display = 'block';
+                	setTimeout(function(){
+                		text.style.transform = 'scale(1)';
+                	    text.style.opacity = 1;
+                	},12);	
+                }
+                
+                btn2[0].onclick = function(){
+                	s = textarea.value;
+                	if(s.length<50||s>length>350){
+                		alert('您输入的文字不得小于50或大于350个');
+                	}else{
+                		oul.innerHTML = '';
+                		start();
+                		text.style.transform = 'scale(0.5)';
+                	    text.style.opacity = 0;
+                	    setTimeout(function(){
+                		   text.style.display = 'none';
+                	    },50);	
+                	}
+                }
+                btn2[1].onclick = function(){
+                	textarea.value = '';
+                }
+                close.onclick = function(){
+                    textarea.value = '';
+                	text.style.transform = 'scale(0.5)';
+                	text.style.opacity = 0;
+                	setTimeout(function(){
+                		text.style.display = 'none';
+                	},50);
+                }
+                
+				//整体旋转
+				var timer2 = setInterval(function(){
+					angley ++;
+					if(angley>360){
+						angley = 0; 
+					}
+					box.style.transform = 'rotateY('+angley+'deg)';
+				},60);
+				
+				function drawcir(obj,theta,phi,i,j){//圆
+					obj.circlex = r*Math.sin(theta*i)*Math.sin(phi*j)+200;
+					obj.circley = -r*Math.cos(theta*i)+200;
+					obj.circlez = r*Math.sin(theta*i)*Math.cos(phi*j);
+				    obj.circletheta = theta*(circlearr.length-i) - Math.PI/2;
+				    obj.circlephi = phi*j;
+				    obj.bigcirclex = (r+2000)*Math.sin(theta*i)*Math.sin(phi*j)+200;
+					obj.bigcircley = -(r+2000)*Math.cos(theta*i)+200;
+					obj.bigcirclez = (r+2000)*Math.sin(theta*i)*Math.cos(phi*j);
+					obj.maxx = obj.bigcirclex;
+					obj.maxy = obj.bigcircley;
+					obj.maxz = obj.bigcirclez;
+				    obj.maxtheta = obj.circletheta;
+				    obj.maxphi = obj.circlephi;
+				}
+				
+				function drawcone(obj,phi,i,j){//圆锥
+					obj.conex = (2*r/conearr.length)*i*Math.tan(Math.PI/6)*Math.sin(phi*j)+200;
+					obj.coney = (2*r/conearr.length)*i+50
+					obj.conez = (2*r/conearr.length)*i*Math.tan(Math.PI/6)*Math.cos(phi*j)
+					obj.conetheta = Math.PI/6;
+					obj.conephi = phi*j;
+					obj.bigconex = (2*(r+2000)/conearr.length)*i*Math.tan(Math.PI/6)*Math.sin(phi*j)+200;
+					obj.bigconey = (2*(r+2000)/conearr.length)*i+50-2000;
+					obj.bigconez = (2*(r+2000)/conearr.length)*i*Math.tan(Math.PI/6)*Math.cos(phi*j)
+				}
+				
+				function drawcol(obj,phi,i,j){//圆柱
+					
+					obj.colx = r/1.5*Math.sin(phi*j)+200;
+					obj.coly = (2*r/(circlearr.length-2))*i+50;
+					obj.colz = r/1.5*Math.cos(phi*j);
+					obj.colphi = phi*j;
+					obj.bigcolx = (r+2000)/1.5*Math.sin(phi*j)+200;
+					obj.bigcoly = (2*(r+2000)/(circlearr.length-2))*i+50;
+					obj.bigcolz = (r+2000)/1.5*Math.cos(phi*j);
+				};
+				function drawcol2(obj,phi,i,j){//扭曲圆柱2
+					
+					obj.colx2 = r/1.5*Math.sin(phi*j+i*8*Math.PI/180)+200;
+					obj.coly2 = (2*r/(circlearr.length-2))*i+50;
+					obj.colz2 = r/1.5*Math.cos(phi*j+i*8*Math.PI/180);
+					obj.colphi2 = phi*j+i*8*Math.PI/180;
+					obj.bigcolx2 = (r+2000)/1.5*Math.sin(phi*j+i*8*Math.PI/180)+200;
+					obj.bigcoly2 = (2*(r+2000)/(circlearr.length-2))*i+50-2000;
+					obj.bigcolz2 = (r+2000)/1.5*Math.cos(phi*j+i*8*Math.PI/180);
+					
+				};
+				
+				function startchange(){  //初始化
+					for(var i=0;i<ali.length;i++){
+						ali[i].className = 'all';
+						ali[i].style.transform = 'translate3D('+ali[i].maxx+'px,'+ali[i].maxy+'px,'+ali[i].maxz+'px) rotateY('+ali[i].maxphi+'rad) rotateX('+ali[i].maxtheta+'rad)';
+						ali[i].style.opacity = 0;
+						
+					}
+					setTimeout(function(){
+						for(var i=0;i<ali.length;i++){
+					        ali[i].style.display = 'none';
+				        }
+					},1050);
+				}
+				
+				function changecircle(){  //圆
+					for(var i=0;i<ali.length;i++){
+                	    ali[i].className = '';
+                	    ali[i].maxx = ali[i].bigcirclex;
+					    ali[i].maxy = ali[i].bigcircley;
+						ali[i].maxz = ali[i].bigcirclez;
+						ali[i].maxtheta = ali[i].circletheta;
+						ali[i].maxphi = ali[i].circlephi;
+                	    ali[i].style.transform = 'translate3D('+ali[i].maxx+'px,'+ali[i].maxy+'px,'+ali[i].maxz+'px) rotateY('+ali[i].maxphi+'rad) rotateX('+ali[i].maxtheta+'rad)';
+                	    ali[i].style.display = 'block';
+                   }
+					setTimeout(function(){
+						for(var i=0;i<ali.length;i++){
+                		   ali[i].className = 'one';
+                	       ali[i].style.opacity = 1;
+                	       ali[i].style.transform = 'translate3D('+ali[i].circlex+'px,'+ali[i].circley+'px,'+ali[i].circlez+'px) rotateY('+ali[i].circlephi+'rad) rotateX('+ali[i].circletheta+'rad)';
+                	    }
+					},50);
+                	
+				}
+				
+				function changecone(){  //圆锥
+						for(var i=0;i<=conenum;i++){
+							ali[i].className = '';
+							ali[i].maxx = ali[i].bigconex;
+							ali[i].maxy = ali[i].bigconey;
+							ali[i].maxz = ali[i].bigconez;
+							ali[i].maxtheta = ali[i].conetheta;
+							ali[i].maxphi = ali[i].conephi;
+							ali[i].style.transform = 'translate3D('+ali[i].maxx+'px,'+ali[i].maxy+'px,'+ali[i].maxz+'px) rotateY('+ali[i].maxphi+'rad) rotateX('+ali[i].maxtheta+'rad)';
+							ali[i].style.display = 'block';
+						}
+						setTimeout(function(){
+							for(var i=0;i<=conenum;i++){
+							  ali[i].className = 'one';
+							  ali[i].style.opacity = 1;
+							  ali[i].style.transform='translate3D('+ali[i].conex+'px,'+ali[i].coney+'px,'+ali[i].conez+'px) rotateY('+ali[i].conephi+'rad) rotateX('+ali[i].conetheta+'rad)';
+							}  
+						},50);
+				}
+				
+				function changecol(){ //圆柱
+						for(var i=0;i<colnum;i++){
+							ali[i].className = '';
+							ali[i].maxx = ali[i].bigcolx;
+							ali[i].maxy = ali[i].bigcoly;
+							ali[i].maxz = ali[i].bigcolz;
+							ali[i].maxtheta = 0;
+							ali[i].maxphi = ali[i].colphi;
+							ali[i].style.transform = 'translate3D('+ali[i].maxx+'px,'+ali[i].maxy+'px,'+ali[i].maxz+'px) rotateY('+ali[i].maxphi+'rad)';
+							ali[i].style.display = 'block';
+						}
+						setTimeout(function(){
+							for(var i=0;i<colnum;i++){
+							  ali[i].className = 'one';
+							  ali[i].style.opacity = 1;
+							  ali[i].style.transform='translate3D('+ali[i].colx+'px,'+ali[i].coly+'px,'+ali[i].colz+'px) rotateY('+ali[i].colphi+'rad)';
+							}  
+						},50);
+				}
+				
+				function changecol2(){//扭曲圆柱
+						for(var i=0;i<colnum;i++){
+							ali[i].className = '';
+							ali[i].maxx = ali[i].bigcolx2;
+							ali[i].maxy = ali[i].bigcoly2;
+							ali[i].maxz = ali[i].bigcolz2;
+							ali[i].maxtheta = 0;
+							ali[i].maxphi = ali[i].colphi2;
+							ali[i].style.transform = 'translate3D('+ali[i].maxx+'px,'+ali[i].maxy+'px,'+ali[i].maxz+'px) rotateY('+ali[i].maxphi+'rad)';
+							ali[i].style.display = 'block';
+						}
+						setTimeout(function(){
+							for(var i=0;i<colnum;i++){
+							  ali[i].className = 'one';
+							  ali[i].style.opacity = 1;
+							  ali[i].style.transform='translate3D('+ali[i].colx2+'px,'+ali[i].coly2+'px,'+ali[i].colz2+'px) rotateY('+ali[i].colphi2+'rad)';
+							}  
+						},50);
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+	 <div class="sence" id="sence">
+	 	<div class="box">
+	 		<ul class="ring"></ul>
+	 	</div>
+	 	<div class="item">
+	 		<p></p>
+	 		<a href="javascript:;"></a>
+	 	</div>
+	 </div>
+	 <div class="table" id="table">
+	 	<a href="javascript:;" class="active">圆球</a>
+	 	<a href="javascript:;">圆锥</a>
+	 	<a href="javascript:;">柱状</a>
+	 	<a href="javascript:;">柱状扭曲</a>
+	 </div>
+	 <div class="line"></div>
+	 <div class="btn">
+	 	<button>展开</button>
+	 	<button>自定义字体</button>
+	 </div>
+	 <div class="text">
+	 	<p>在下面输入自己的文字，（建议50~350字）</p>
+	 	<textarea></textarea>
+	 	<div class="btn2">
+	 		<button>提交</button>
+	 		<button>重置</button>
+	 	</div>
+	 	<a href="javascript:;" class="close"></a>
+	 </div>
+	</body>
+</html>
